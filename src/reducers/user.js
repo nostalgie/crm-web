@@ -1,4 +1,4 @@
-import { LOGIN_START } from '../constants/redux';
+import { LOGIN_START } from 'constants/redux';
 
 export const initState = {
   authToken: '',
