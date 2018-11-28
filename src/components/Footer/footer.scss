@@ -1,0 +1,10 @@
+@import '../varaibles.scss';
+
+.ft {
+  //   position: fixed;
+  //   bottom: 0;
+  //   left: 5vw;
+  width: $content-w;
+  height: $footer-h;
+  background-color: $font-color;
+}

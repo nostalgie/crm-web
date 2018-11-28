@@ -1,0 +1,12 @@
+@import '../varaibles.scss';
+
+.fix {
+  margin: 0 auto;
+  width: $content-w;
+  height: $main-h;
+}
+
+.alert {
+  height: 100%;
+  margin-bottom: 0;
+}
