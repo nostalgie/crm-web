@@ -1,10 +1,10 @@
-import React from 'react';
-import { Switch, withRouter } from 'react-router-dom';
-import AuthRoute from 'components/AuthRoute';
-import HomePage from 'components/HomePage';
-import LoginLayout from 'components/LoginLayout/container';
+import React from "react";
+import { Switch, withRouter } from "react-router-dom";
+import AuthRoute from "components/AuthRoute/container";
+import HomePage from "components/HomePage";
+import LoginLayout from "components/LoginLayout/container";
 
-import { routes } from '../../constants';
+import { routes } from "../../constants";
 
 const Routes = () => (
   <Switch>
@@ -14,7 +14,7 @@ const Routes = () => (
       component={LoginLayout}
       noAuthRequired
     />
-    <AuthRoute path={routes.HOME} component={HomePage} noAuthRequired />
+    <AuthRoute path={routes.HOME} component={HomePage} userAuthRequired />
   </Switch>
 );
 

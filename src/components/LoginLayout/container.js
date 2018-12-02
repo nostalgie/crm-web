@@ -1,16 +1,17 @@
-import { connect } from 'react-redux';
-import { login } from 'actions/user';
-import LoginLayout from 'components/LoginLayout';
+import { connect } from "react-redux";
+import { login } from "actions/user";
+import LoginLayout from "components/LoginLayout";
 
 const mapStateToProps = state => ({
   isLoggingIn: state.user.isLoggingIn,
+  username: state.user.username
 });
 
 const mapDispatchToProps = {
-  login,
+  login
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(LoginLayout);

@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import LoginForm from 'components/LoginForm';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import LoginForm from "components/LoginForm";
 
-import './styles.scss';
+import "./styles.scss";
 
-class LoginLayout extends Component {
+class LoginLayout extends PureComponent {
   handleSubmit = values => {
-    this.props.login(...values);
+    const { username, password } = values;
+    this.props.login(username, password);
   };
 
   render() {
@@ -19,7 +20,9 @@ class LoginLayout extends Component {
 }
 
 LoginLayout.propTypes = {
-  login: PropTypes.func,
+  isLoggingIn: PropTypes.bool,
+  username: PropTypes.string,
+  login: PropTypes.func
 };
 
 export default LoginLayout;

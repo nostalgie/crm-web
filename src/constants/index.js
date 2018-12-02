@@ -1,11 +1,15 @@
 export const routes = {
-  HOME: '/',
-  LOGIN: '/login',
+  HOME: "/",
+  LOGIN: "/login"
 };
 
 export const roles = {
-  SENIOR_ADMIN: 'senior_admin',
-  DUTY_ADMIN: 'duty_admin',
-  CUSTOMER: 'customer',
-  MANAGER: 'manager',
+  SENIOR_ADMIN: "senior_admin",
+  DUTY_ADMIN: "duty_admin",
+  CUSTOMER: "customer",
+  MANAGER: "manager"
 };
+
+export const API_URL = process.env.REACT_APP_API_URL;
+
+export const AUTH_TOKEN = "authToken";
