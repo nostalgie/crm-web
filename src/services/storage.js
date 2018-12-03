@@ -1,4 +1,4 @@
-class StorageSrvice {
+class StorageService {
   constructor() {
     this.storage = window.localStorage;
   }
@@ -12,4 +12,4 @@ class StorageSrvice {
   }
 }
 
-export default new StorageSrvice();
+export default new StorageService();
