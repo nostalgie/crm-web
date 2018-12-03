@@ -1,4 +1,4 @@
-import { LOGIN_START, LOGIN_SUCCESS } from "constants/redux";
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from "constants/redux";
 import storage from "services/storage";
 import { AUTH_TOKEN } from "../constants";
 
@@ -6,7 +6,8 @@ export const initState = {
   authToken: storage.getItem(AUTH_TOKEN),
   username: null,
   role: null,
-  isLoggingIn: false
+  isLoggingIn: false,
+  error: null
 };
 
 export default (state = initState, action) => {
@@ -14,7 +15,8 @@ export default (state = initState, action) => {
     case LOGIN_START: {
       return {
         ...state,
-        isLoggingIn: true
+        isLoggingIn: true,
+        error: null
       };
     }
     case LOGIN_SUCCESS: {
@@ -23,6 +25,13 @@ export default (state = initState, action) => {
         authToken: action.token,
         username: action.username,
         role: action.role,
+        isLoggingIn: false
+      };
+    }
+    case LOGIN_FAILURE: {
+      return {
+        ...state,
+        error: action.message,
         isLoggingIn: false
       };
     }
