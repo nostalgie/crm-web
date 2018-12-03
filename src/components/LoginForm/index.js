@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { reduxForm } from 'redux-form';
-import Input from 'components/Input';
-import { validate } from 'utils/validators';
+import React from "react";
+import PropTypes from "prop-types";
+import { reduxForm } from "redux-form";
+import Input from "components/Input";
+import { validate } from "utils/validators";
 
 const LoginForm = props => {
-  const { handleSubmit } = props;
+  const { handleSubmit, error } = props;
   return (
     <form onSubmit={handleSubmit} noValidate>
       <Input
@@ -21,16 +21,17 @@ const LoginForm = props => {
         placeholder="Введите пароль"
         label="Пароль"
       />
-      <button type="submit">Submit</button>
+      {error && <div className="text-danger">{error}</div>}
+      <button type="submit">Войти</button>
     </form>
   );
 };
 
 LoginForm.propTypes = {
-  handleSubmit: PropTypes.func,
+  handleSubmit: PropTypes.func
 };
 
 export default reduxForm({
-  form: 'login',
-  validate,
+  form: "login",
+  validate
 })(LoginForm);
