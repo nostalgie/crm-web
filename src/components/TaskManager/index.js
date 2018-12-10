@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Ticket from "components/Ticket";
-import TicketFull from "components/TicketFull";
+import TicketFull from "components/TicketFull/container";
 
 import "./styles.scss";
 
@@ -14,14 +14,15 @@ class TaskManager extends Component {
     this.getTickets();
   }
 
-  componentDidUpdate(prevProps) {
+  async componentDidUpdate(prevProps) {
     // const { pathname } = this.props.location;
     // if (pathname !== prevProps.location.pathname) {
     // this.getTickets();
     // }
     const { state } = this.props;
     if (state !== prevProps.state) {
-      this.getTickets();
+      this.setState({ id: 0 });
+      await this.getTickets();
     }
   }
 

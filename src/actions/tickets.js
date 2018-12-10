@@ -41,3 +41,45 @@ export const getTickets = state => {
     }
   };
 };
+
+export const addUpdate = (ticketId, message, executorId) => {
+  return async (dispatch, getState) => {
+    const { authToken } = getState().user;
+    let result;
+
+    try {
+      result = await api.addUpdate(authToken, ticketId, message, executorId);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const completeTicket = ticketId => {
+  return async (dispatch, getState) => {
+    const { authToken } = getState().user;
+    let result;
+
+    try {
+      result = await api.completeTicket(authToken, ticketId);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const rateTicket = (ticketId, rating) => {
+  return async (dispatch, getState) => {
+    const { authToken } = getState().user;
+    let result;
+
+    try {
+      result = await api.rateTicket(authToken, ticketId, rating);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

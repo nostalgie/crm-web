@@ -21,7 +21,10 @@ export const userTypes = {
 export const ticketStates = {
   OPEN: "open",
   AWAITING_REVIEW: "awaiting review",
-  CLOSED: "closed"
+  CLOSED: "closed",
+  FOR_DUTY: "for duty",
+  FOR_MANAGER: "for manager",
+  FOR_SENIOR: "for senior"
 };
 
 export const API_URL = process.env.REACT_APP_API_URL;

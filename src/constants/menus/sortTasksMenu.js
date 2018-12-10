@@ -16,16 +16,19 @@ export const sortTasksMenu = {
     {
       name: "У менеджера",
       path: "#",
+      state: ticketStates.FOR_MANAGER,
       roles: [roles.SENIOR_ADMIN, roles.DUTY_ADMIN]
     },
     {
       name: "Нужен выезд",
       path: "#",
+      state: ticketStates.FOR_DUTY,
       roles: [roles.SENIOR_ADMIN]
     },
     {
       name: "Старшему админу",
       path: "#",
+      state: ticketStates.FOR_SENIOR,
       roles: [roles.DUTY_ADMIN]
     },
     {
