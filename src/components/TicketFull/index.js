@@ -5,7 +5,6 @@ import Update from "components/Update";
 
 class TicketFull extends React.Component {
   render() {
-    console.log("ticket_full", this.props);
     const {
       createdAt,
       description,
@@ -14,7 +13,6 @@ class TicketFull extends React.Component {
       phoneNumber,
       updates
     } = this.props;
-    console.log(updates);
     const date = new Date(createdAt);
     return (
       <div className="card">

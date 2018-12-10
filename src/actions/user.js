@@ -29,6 +29,8 @@ export const login = (username, password) => {
       const { token, role } = result.data;
 
       storage.setItem(AUTH_TOKEN, token);
+      storage.setItem("username", username);
+      storage.setItem("role", role);
       dispatch(loginSuccess(username, token, role));
       return;
     } catch (error) {

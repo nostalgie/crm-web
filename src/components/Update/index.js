@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { localizeAdminRole } from "utils/localizers";
+
+import { userTypes } from "../../constants";
 
 class Update extends React.Component {
   render() {
-    console.log("update", this.props);
     const {
       createdAt,
       message,
-      userInfo: { firstName, lastName }
+      userInfo: { firstName, lastName, name, type, role }
     } = this.props;
     const date = new Date(createdAt);
     return (
@@ -16,7 +18,9 @@ class Update extends React.Component {
           <ul className="nav justify-content-center">
             <li className="nav-item">
               <span className="nav-link active">
-                {`КОМПАНИЯ:${firstName + " " + lastName}`}
+                {type === userTypes.CUSTOMER
+                  ? `компания: ${name}`
+                  : `${localizeAdminRole(role)} ${firstName} ${lastName}`}
               </span>
             </li>
             <li className="nav-item">

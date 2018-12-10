@@ -4,8 +4,8 @@ import { AUTH_TOKEN } from "../constants";
 
 export const initState = {
   authToken: storage.getItem(AUTH_TOKEN),
-  username: null,
-  role: null,
+  username: storage.getItem("username"),
+  role: storage.getItem("role"),
   isLoggingIn: false,
   error: null
 };

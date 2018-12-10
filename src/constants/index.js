@@ -1,9 +1,9 @@
 export const routes = {
   DASHBOARD: "/dashboard",
   LOGIN: "/login",
-  TICKETS_OPEN: '/dashboard/open',
-  TICKETS_AWAITING: '/dashboard/awaiting',
-  TICKETS_CLOSED: '/dashboard/closed',
+  TICKETS_OPEN: "/dashboard/open",
+  TICKETS_AWAITING: "/dashboard/awaiting",
+  TICKETS_CLOSED: "/dashboard/closed"
 };
 
 export const roles = {
@@ -11,6 +11,11 @@ export const roles = {
   DUTY_ADMIN: "duty_admin",
   CUSTOMER: "customer",
   MANAGER: "manager"
+};
+
+export const userTypes = {
+  CUSTOMER: "customer",
+  EMPLOYEE: "employee"
 };
 
 export const ticketStates = {

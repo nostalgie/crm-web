@@ -18,4 +18,4 @@ const Routes = () => (
   </Switch>
 );
 
-export default withRouter(Routes);
+export default Routes;

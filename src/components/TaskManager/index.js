@@ -1,44 +1,36 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { SubmissionError } from "redux-form";
 import Ticket from "components/Ticket";
 import TicketFull from "components/TicketFull";
 
 import "./styles.scss";
 
 class TaskManager extends Component {
-  constructor() {
-    super();
-    this.state = {
-      id: 0
-    };
-  }
-
-  componentDidMount() {
-    let location = this.props.location.pathname;
-    console.log(location);
-    let state = location.replace(/\/[a-z]+\//, "");
-    this.setState({ state }, () => this.getTickets(this.state));
-  }
-
-  componentWillUnmount() {
-    console.log("kere4");
-  }
-
-  componentDidUpdate() {}
-
-  getTickets = async values => {
-    const { state } = values;
-    await this.props.getTickets(state);
-    const { ticketsRequestError } = this.props;
-    if (ticketsRequestError) {
-      throw new SubmissionError({
-        _error: ticketsRequestError
-      });
-    }
+  state = {
+    id: 0
   };
 
-  handleSubmit = async values => {};
+  componentDidMount() {
+    this.getTickets();
+  }
+
+  componentDidUpdate(prevProps) {
+    // const { pathname } = this.props.location;
+    // if (pathname !== prevProps.location.pathname) {
+    // this.getTickets();
+    // }
+    const { state } = this.props;
+    if (state !== prevProps.state) {
+      this.getTickets();
+    }
+  }
+
+  getTickets = () => {
+    // const location = this.props.location.pathname;
+    // const splittedUrl = location.split("/");
+    const { state } = this.props;
+    this.props.getTickets(state);
+  };
 
   handleShow = id => {
     this.setState({ id });
@@ -47,12 +39,11 @@ class TaskManager extends Component {
   render() {
     const { tickets } = this.props;
     const { id } = this.state;
-    const ticketProps = tickets.filter(({ id }) => id === this.state.id);
-    console.log(ticketProps[0]);
+    const ticketProps = tickets.find(({ id }) => id === this.state.id);
     return (
       <React.Fragment>
         {id > 0 ? (
-          <TicketFull {...ticketProps[0]} />
+          <TicketFull {...ticketProps} />
         ) : (
           <div className="d-flex flex-sm-column">
             {tickets.map(ticket => {
@@ -71,4 +62,4 @@ class TaskManager extends Component {
   }
 }
 
-export default withRouter(TaskManager);
+export default TaskManager;

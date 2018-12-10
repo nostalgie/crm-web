@@ -20,7 +20,13 @@ const LeftNavBar = props =>
           .filter(item => item.roles.some(role => role === props.currentRole))
           .map(currentItem => (
             <div key={currentItem.name} className="dropdown-item">
-              <Link to={currentItem.path}>{currentItem.name}</Link>
+              <span
+                onClick={() => {
+                  props.setTicketsState(currentItem.state);
+                }}
+              >
+                {currentItem.name}
+              </span>
             </div>
           ))}
       </div>
