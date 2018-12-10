@@ -1,7 +1,8 @@
-@import '../varaibles.scss';
+@import "../varaibles.scss";
 
 .fix {
-  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
   width: $content-w;
   height: $main-h;
 }

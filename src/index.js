@@ -8,8 +8,8 @@ import App from './components/App';
 
 import * as serviceWorker from './serviceWorker';
 
-import 'normalize.css/normalize.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'normalize.css/normalize.css';
 import './assets/styles/base.scss';
 
 const store = configureStore();

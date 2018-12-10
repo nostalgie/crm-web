@@ -1,10 +1,10 @@
-import { roles } from '..';
+import { roles, routes } from '..';
 export const sortTasksMenu = {
   title: 'Журнал заявок',
   array: [
     {
       name: 'В работе',
-      path: '#',
+      path: routes.TICKETS_OPEN,
       roles: [
         roles.SENIOR_ADMIN,
         roles.DUTY_ADMIN,
@@ -29,7 +29,7 @@ export const sortTasksMenu = {
     },
     {
       name: 'Ожидают подтверждения',
-      path: '#',
+      path: routes.TICKETS_AWAITING,
       roles: [
         roles.SENIOR_ADMIN,
         roles.DUTY_ADMIN,
@@ -39,7 +39,7 @@ export const sortTasksMenu = {
     },
     {
       name: 'Выполненные',
-      path: '#',
+      path: routes.TICKETS_CLOSED,
       roles: [
         roles.SENIOR_ADMIN,
         roles.DUTY_ADMIN,

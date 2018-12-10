@@ -11,6 +11,13 @@ class Request {
   post(url, { payload }) {
     return this.axios.post(url, payload);
   }
+
+  get(url, { params }, token) {
+    return this.axios.get(url, {
+      params,
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
 }
 
 export default Request;

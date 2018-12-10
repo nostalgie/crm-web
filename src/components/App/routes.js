@@ -14,7 +14,7 @@ const Routes = () => (
       component={LoginLayout}
       noAuthRequired
     />
-    <AuthRoute path={routes.HOME} component={HomePage} userAuthRequired />
+    <AuthRoute path={routes.DASHBOARD} component={HomePage} userAuthRequired />
   </Switch>
 );
 

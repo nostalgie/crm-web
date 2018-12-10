@@ -5,7 +5,7 @@ import Routes from './routes';
 import './styles.scss';
 
 const App = () => (
-  <div className="container">
+  <div className="container-fluid mx-w">
     <Routes />
   </div>
 );
