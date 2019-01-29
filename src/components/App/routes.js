@@ -1,10 +1,10 @@
-import React from "react";
-import { Switch, withRouter } from "react-router-dom";
-import AuthRoute from "components/AuthRoute/container";
-import HomePage from "components/HomePage";
-import LoginLayout from "components/LoginLayout/container";
+import React from 'react'
+import { Switch, Redirect, withRouter } from 'react-router-dom'
+import AuthRoute from 'components/AuthRoute/container'
+import HomePage from 'components/HomePage'
+import LoginLayout from 'components/LoginLayout/container'
 
-import { routes } from "../../constants";
+import { routes } from '../../constants'
 
 const Routes = () => (
   <Switch>
@@ -15,7 +15,8 @@ const Routes = () => (
       noAuthRequired
     />
     <AuthRoute path={routes.DASHBOARD} component={HomePage} userAuthRequired />
+    <Redirect to={routes.LOGIN} />
   </Switch>
-);
+)
 
-export default Routes;
+export default Routes

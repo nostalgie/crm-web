@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 // import { hot } from 'react-hot-loader';
-import Routes from './routes';
+import Routes from './routes'
 
-import './styles.scss';
+import './styles.scss'
 
 const App = () => (
-  <div className="container-fluid mx-w">
+  <div className='container-fluid mx-w'>
     <Routes />
   </div>
-);
+)
 
-export default App;
+export default App
