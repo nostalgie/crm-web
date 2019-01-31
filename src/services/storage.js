@@ -1,15 +1,19 @@
 class StorageService {
-  constructor() {
-    this.storage = window.localStorage;
+  constructor () {
+    this.storage = window.localStorage
   }
 
-  setItem(key, value) {
-    return this.storage.setItem(key, value);
+  setItem (key, value) {
+    return this.storage.setItem(key, value)
   }
 
-  getItem(key) {
-    return this.storage.getItem(key);
+  getItem (key) {
+    return this.storage.getItem(key)
+  }
+
+  removeItem (key) {
+    return this.storage.removeItem(key)
   }
 }
 
-export default new StorageService();
+export default new StorageService()
