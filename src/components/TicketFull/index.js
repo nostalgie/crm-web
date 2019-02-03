@@ -54,6 +54,8 @@ class TicketFull extends React.Component {
         break
       }
     }
+
+    await this.getTicketInfo()
   };
 
   changeExecutor = async executorRole => {
