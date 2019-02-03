@@ -2,10 +2,8 @@ export const routes = {
   HOME: '/',
   DASHBOARD: '/dashboard',
   LOGIN: '/login',
-  TICKET: '/dashboard/:id',
-  TICKETS_OPEN: '/dashboard/open',
-  TICKETS_AWAITING: '/dashboard/awaiting',
-  TICKETS_CLOSED: '/dashboard/closed'
+  TICKET_INFO: '/dashboard/ticket/:id',
+  TICKETS: '/dashboard/tickets'
 }
 
 export const roles = {
@@ -22,11 +20,11 @@ export const userTypes = {
 
 export const ticketStates = {
   OPEN: 'open',
-  AWAITING_REVIEW: 'awaiting review',
+  AWAITING_REVIEW: 'awaiting_review',
   CLOSED: 'closed',
-  FOR_DUTY: 'for duty',
-  FOR_MANAGER: 'for manager',
-  FOR_SENIOR: 'for senior'
+  FOR_DUTY: `for_${roles.DUTY_ADMIN}`,
+  FOR_MANAGER: `for_${roles.MANAGER}`,
+  FOR_SENIOR: `for_${roles.SENIOR_ADMIN}`
 }
 
 export const API_URL = process.env.REACT_APP_API_URL

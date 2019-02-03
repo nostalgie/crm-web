@@ -1,83 +1,77 @@
-import React, { Component } from "react";
-import Ticket from "components/Ticket";
-import TaskFilter from "components/TaskFilter/container";
-import { periods, types } from "constants/menus/filter";
+import React, { Component } from 'react';
+import Ticket from 'components/Ticket';
+import TaskFilter from 'components/TaskFilter/container';
+import { periods, types } from 'constants/menus/filter';
 
-import "./styles.scss";
+import './styles.scss';
 
 class TaskManager extends Component {
   state = {
-    id: 0,
     filter: {
       type: types.ALL,
       customer: null,
       period: periods.DAY.value,
-      dateSt: "1970-01-01",
-      dateEnd: "2020-01-01"
+      dateSt: '1970-01-01',
+      dateEnd: '2020-01-01'
     }
   };
 
-  componentDidMount() {
-    this.getTickets();
+  componentDidMount () {
+    this.getTickets()
   }
 
-  async componentDidUpdate(prevProps) {
-    const { state } = this.props;
-    if (state !== prevProps.state) {
-      this.setState({ id: 0 });
-      await this.getTickets();
+  async componentDidUpdate (prevProps) {
+    const { search } = this.props.location
+    if (search !== prevProps.location.search) {
+      this.getTickets()
     }
   }
 
   getTickets = () => {
-    const { state } = this.props;
-    const { customer, period, dateSt, dateEnd } = this.state.filter;
-    let actualPeriod;
+    const { search } = this.props.location
+    const state = search.split('=')[1]
+    const { customer, period, dateSt, dateEnd } = this.state.filter
+    let actualPeriod
+
     Object.keys(periods).map(key => {
       if (periods[key].value === period) {
-        actualPeriod = periods[key].request;
+        actualPeriod = periods[key].request
       }
-    });
-    console.log({
-      state,
-      customer,
-      period: actualPeriod,
-      startDate: dateSt,
-      endDate: dateEnd
-    });
+    })
+
     this.props.getTickets({
       state,
       customer,
       period: actualPeriod,
       startDate: dateSt,
       endDate: dateEnd
-    });
+    })
   };
 
   handleSubmit = filter => {
-    this.setState(filter, this.getTickets);
+    this.setState(filter, this.getTickets)
   };
 
   handleShow = id => {
-    this.setState({ id });
+    this.setState({ id })
   };
 
-  render() {
-    const { tickets } = this.props;
+  render () {
+    const { tickets } = this.props
     return (
       <React.Fragment>
         <TaskFilter
           handleSubmit={this.handleSubmit}
           initState={this.state.filter}
         />
-        <div className="d-flex flex-sm-column">
+        <div className='d-flex flex-sm-column'>
           {tickets.map(ticket => {
-            return <Ticket key={`ticket_${ticket.id}`} {...ticket} />;
+            return <Ticket key={`ticket_${ticket.id}`} {...ticket} />
           })}
         </div>
       </React.Fragment>
-    );
+    )
   }
 }
 
-export default TaskManager;
+export default TaskManager
