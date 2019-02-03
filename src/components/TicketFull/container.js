@@ -4,7 +4,6 @@ import { getTicketInfo, addUpdate, completeTicket, rateTicket } from 'actions/ti
 import TicketFull from 'components/TicketFull'
 
 const mapStateToProps = state => ({
-  currentRole: state.user.role,
   ticketInfo: state.tickets.fullTicket
 })
 

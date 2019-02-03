@@ -33,40 +33,52 @@ export const API_URL = process.env.REACT_APP_API_URL
 
 export const AUTH_TOKEN = 'authToken'
 
-export const ticketButtons = [
-  {
-    label: 'Оставить комментарий'
-  },
-  {
-    label: 'Выполнить',
-    availableTo: [
-      roles.DUTY_ADMIN,
-      roles.MANAGER,
-      roles.SENIOR_ADMIN
-    ]
-  },
-  {
-    label: 'Отправить дежурному',
-    availableTo: [
-      roles.MANAGER,
-      roles.SENIOR_ADMIN
-    ],
-    newExecutor: roles.DUTY_ADMIN
-  },
-  {
-    label: 'Отправить старшему',
-    availableTo: [
-      roles.MANAGER,
-      roles.DUTY_ADMIN
-    ],
-    newExecutor: roles.SENIOR_ADMIN
-  },
-  {
-    label: 'Отправить менеджеру',
-    availableTo: [
-      roles.DUTY_ADMIN,
-      roles.SENIOR_ADMIN
-    ],
-    newExecutor: roles.MANAGER
-  }
-]
+export const ticketButtons = {
+  unfinished: [
+    {
+      label: 'Оставить комментарий'
+    },
+    {
+      label: 'Выполнить',
+      availableTo: [
+        roles.DUTY_ADMIN,
+        roles.MANAGER,
+        roles.SENIOR_ADMIN
+      ],
+      action: 'complete'
+    },
+    {
+      label: 'Отправить дежурному',
+      availableTo: [
+        roles.MANAGER,
+        roles.SENIOR_ADMIN
+      ],
+      newExecutor: roles.DUTY_ADMIN
+    },
+    {
+      label: 'Отправить старшему',
+      availableTo: [
+        roles.MANAGER,
+        roles.DUTY_ADMIN
+      ],
+      newExecutor: roles.SENIOR_ADMIN
+    },
+    {
+      label: 'Отправить менеджеру',
+      availableTo: [
+        roles.DUTY_ADMIN,
+        roles.SENIOR_ADMIN
+      ],
+      newExecutor: roles.MANAGER
+    }
+  ],
+  unrated: [
+    {
+      label: 'Оценить',
+      availableTo: [
+        roles.CUSTOMER
+      ],
+      action: 'rate'
+    }
+  ]
+}
