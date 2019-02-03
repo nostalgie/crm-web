@@ -23,11 +23,11 @@ class ApiService {
       params.customer = customer
     }
 
-    if (period === periods.CUSTOM) {
+    if (period === periods.CUSTOM.request) {
       params.startDate = startDate
       params.endDate = endDate
     }
-
+    console.log(params)
     return this.request.get(url, { params }, token)
   }
 
