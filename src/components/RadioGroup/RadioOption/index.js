@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 class RadioOption extends React.Component {
   render() {
-    const { value, onChange, isChecked } = this.props;
+    const { value, textValue, onChange, isChecked } = this.props;
     return (
       <div class="input-group">
         <div class="input-group-prepend">
@@ -17,7 +17,7 @@ class RadioOption extends React.Component {
         </div>
         <button
           type="text"
-          aria-label={value}
+          aria-label={textValue}
           onClick={onChange.bind(this, value)}
         >
           {value}
@@ -30,6 +30,7 @@ class RadioOption extends React.Component {
 RadioOption.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string,
+  textValue: PropTypes.string,
   name: PropTypes.string,
   isChecked: PropTypes.bool
 };

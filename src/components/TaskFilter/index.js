@@ -19,6 +19,7 @@ export class TaskFilter extends Component {
   }
 
   handleSubmit = () => {
+    console.log(this.state);
     this.props.handleSubmit(this.state);
   };
 
@@ -37,18 +38,25 @@ export class TaskFilter extends Component {
             }}
             initValue={this.state.type}
           >
-            <RadioOption value={types.ALL} />
-            <RadioOption value={types.CUSTOMER} />
+            <RadioOption value={types.ALL} textValue={types.ALL} />
+            <RadioOption value={types.CUSTOMER} textValue={types.CUSTOMER} />
           </RadioGroup>
           {this.state.type === types.CUSTOMER ? (
             <Select
               className={"w-25"}
               name="customer"
               id="customer-select"
-              handleChange={customer => this.setState({ customer })}
+              handleChange={customer => {
+                console.log("dwedwed");
+                this.setState({ customer });
+              }}
             >
               {customers.map(({ id, name }) => (
-                <SelectOption value={id} textValue={name} />
+                <SelectOption
+                  key={id + "_" + name}
+                  value={id + ""}
+                  textValue={name}
+                />
               ))}
             </Select>
           ) : null}
@@ -61,13 +69,25 @@ export class TaskFilter extends Component {
           }}
           initValue={this.state.period}
         >
-          <RadioOption value={periods.DAY.value} />
-          <RadioOption value={periods.WEEK.value} />
-          <RadioOption value={periods.MONTH.value} />
-          <RadioOption value={periods.CUSTOM.value} />
+          <RadioOption
+            value={periods.DAY.request}
+            textValue={periods.DAY.value}
+          />
+          <RadioOption
+            value={periods.WEEK.request}
+            textValue={periods.WEEK.value}
+          />
+          <RadioOption
+            value={periods.MONTH.request}
+            textValue={periods.MONTH.value}
+          />
+          <RadioOption
+            value={periods.CUSTOM.request}
+            textValue={periods.CUSTOM.value}
+          />
         </RadioGroup>
 
-        {this.state.period === periods.CUSTOM.value ? (
+        {this.state.period === periods.CUSTOM.request ? (
           <div className={"d-flex justify-content-around"}>
             {"c"}
             <input
