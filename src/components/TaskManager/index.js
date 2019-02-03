@@ -1,66 +1,53 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import Ticket from "components/Ticket";
-import TicketFull from "components/TicketFull/container";
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import Ticket from 'components/Ticket'
+import TicketFull from 'components/TicketFull/container'
 
-import "./styles.scss";
+import './styles.scss'
 
 class TaskManager extends Component {
   state = {
     id: 0
   };
 
-  componentDidMount() {
-    this.getTickets();
+  componentDidMount () {
+    this.getTickets()
   }
 
-  async componentDidUpdate(prevProps) {
+  async componentDidUpdate (prevProps) {
     // const { pathname } = this.props.location;
     // if (pathname !== prevProps.location.pathname) {
     // this.getTickets();
     // }
-    const { state } = this.props;
+    const { state } = this.props
     if (state !== prevProps.state) {
-      this.setState({ id: 0 });
-      await this.getTickets();
+      this.setState({ id: 0 })
+      await this.getTickets()
     }
   }
 
   getTickets = () => {
     // const location = this.props.location.pathname;
     // const splittedUrl = location.split("/");
-    const { state } = this.props;
-    this.props.getTickets(state);
+    const state = 'open'
+    this.props.getTickets(state)
   };
 
-  handleShow = id => {
-    this.setState({ id });
-  };
-
-  render() {
-    const { tickets } = this.props;
-    const { id } = this.state;
-    const ticketProps = tickets.find(({ id }) => id === this.state.id);
+  render () {
+    const { tickets } = this.props
     return (
-      <React.Fragment>
-        {id > 0 ? (
-          <TicketFull {...ticketProps} />
-        ) : (
-          <div className="d-flex flex-sm-column">
-            {tickets.map(ticket => {
-              return (
-                <Ticket
-                  key={`ticket_${ticket.id}`}
-                  {...ticket}
-                  handleShow={this.handleShow}
-                />
-              );
-            })}
-          </div>
-        )}
-      </React.Fragment>
-    );
+      <div className='d-flex flex-sm-column'>
+        {tickets.map(ticket => {
+          return (
+            <Ticket
+              key={`ticket_${ticket.id}`}
+              {...ticket}
+            />
+          )
+        })}
+      </div>
+    )
   }
 }
 
-export default TaskManager;
+export default TaskManager

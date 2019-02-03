@@ -1,45 +1,99 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import Update from "components/Update";
-import { roles } from "../../constants";
-import { throws } from "assert";
+import React from 'react'
+import PropTypes from 'prop-types'
+import Update from 'components/Update'
+import TicketButtonGroup from 'components/TicketButtonGroup/container'
+import NewExecutorModal from 'components/Modals/NewExecutorModal'
 
 class TicketFull extends React.Component {
   state = {
-    comment: ""
+    comment: '',
+    showNewExecutorModal: false
   };
+
+  componentDidMount () {
+    this.getTicketInfo()
+  }
+
+  getTicketInfo = () => {
+    const { match, getTicketInfo } = this.props
+    const { id } = match.params
+
+    getTicketInfo(id)
+  }
 
   handleCommentChange = ev => {
-    const { value } = ev.target;
-    this.setState({ comment: value });
+    const { value } = ev.target
+    this.setState({ comment: value })
   };
 
-  addUpdate = async () => {
-    const { id } = this.props;
-    const { comment } = this.state;
-    await this.props.addUpdate(id, comment);
-    this.setState({ comment: "" });
+  addUpdate = async e => {
+    const { id } = this.props.ticketInfo
+    const { comment } = this.state
+    const { newexecutor: newExecutorRole, action } = e.target.dataset
+    let newExecutorId
+
+    if (newExecutorRole) {
+      newExecutorId = await this.changeExecutor(newExecutorRole)
+
+      if (!newExecutorId) {
+        return
+      }
+    }
+
+    await this.props.addUpdate(id, comment, newExecutorId)
+
+    this.setState({ comment: '' })
+
+    switch (action) {
+      case 'complete': {
+        this.completeTicket()
+        break
+      }
+      case 'rate': {
+        this.rateTicket()
+        break
+      }
+    }
+
+    await this.getTicketInfo()
   };
 
-  changeExecutor = executorId => {
-    const { id } = this.props;
-    const { comment } = this.state;
-    this.props.addUpdate(id, comment, executorId);
+  changeExecutor = async executorRole => {
+    this.toggleNewExecutorModal()
+
+    return new Promise(resolve => {
+      this.resolve = resolve
+    })
   };
+
+  onExecutorSelect = async () => {
+    this.toggleNewExecutorModal()
+    return this.resolve(1)
+  }
 
   completeTicket = () => {
-    this.addUpdate();
-    this.props.completeTicket(this.props.id);
+    this.props.completeTicket(this.props.ticketInfo.id)
   };
 
   rateTicket = () => {
-    this.addUpdate();
-    const rating = prompt("Оцените от 1 до 5");
-    this.props.rateTicket(this.props.id, rating);
+    const rating = prompt('Оцените от 1 до 5')
+    this.props.rateTicket(this.props.ticketInfo.id, rating)
   };
 
-  render() {
+  toggleNewExecutorModal = () => {
+    const { showNewExecutorModal } = this.state
+
+    this.setState({ showNewExecutorModal: !showNewExecutorModal })
+  }
+
+  render () {
+    const { ticketInfo } = this.props
+    const { comment, showNewExecutorModal } = this.state
+
+    if (!ticketInfo) {
+      return null
+    }
+
     const {
       createdAt,
       description,
@@ -47,132 +101,73 @@ class TicketFull extends React.Component {
       lastName,
       phoneNumber,
       updates,
-      currentRole,
       isFinished,
       rating
-    } = this.props;
-    const { comment } = this.state;
-    const date = new Date(createdAt);
+    } = ticketInfo
+    const date = new Date(createdAt)
 
     return (
-      <div className="card">
-        <h6 className="card-header">
-          <ul className="nav justify-content-center">
-            <li className="nav-item">
-              <span className="nav-link active">
-                {`КОМПАНИЯ:${firstName + " " + lastName}`}
-              </span>
-            </li>
-            <li className="nav-item">
-              <span className="nav-link active">{`тел.${phoneNumber}`}</span>
-            </li>
-            <li className="nav-item">
-              <span className="nav-link disabled">
-                {`от ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`}
-              </span>
-            </li>
-          </ul>
-        </h6>
-        <div className="card-body">
-          <p className="card-text text-center">{description}</p>
-          <div className="d-flex flex-coloum">
-            {
-              <div className="container-fluid d-flex flex-column">
-                {updates.map(update => {
-                  return <Update key={`update_${update.id}`} {...update} />;
-                })}
-              </div>
-            }
-          </div>
-          {!!rating && <div>Оценка выполнения: {rating}</div>}
-          {!isFinished && (
-            <div className="form-group mt-2">
-              <textarea
-                value={comment}
-                name="comment"
-                rows="3"
-                className="form-control"
-                onChange={this.handleCommentChange}
-              />
+      <React.Fragment>
+        <NewExecutorModal
+          visible={showNewExecutorModal}
+          onClose={this.toggleNewExecutorModal}
+          onSend={this.onExecutorSelect}
+        />
+        <div className='card'>
+          <h6 className='card-header'>
+            <ul className='nav justify-content-center'>
+              <li className='nav-item'>
+                <span className='nav-link active'>
+                  {`КОМПАНИЯ:${firstName + ' ' + lastName}`}
+                </span>
+              </li>
+              <li className='nav-item'>
+                <span className='nav-link active'>{`тел.${phoneNumber}`}</span>
+              </li>
+              <li className='nav-item'>
+                <span className='nav-link disabled'>
+                  {`от ${date.toLocaleDateString()}`}
+                </span>
+              </li>
+            </ul>
+          </h6>
+          <div className='card-body'>
+            <p className='card-text text-center'>{description}</p>
+            <div className='d-flex flex-coloum'>
+              {
+                <div className='container-fluid d-flex flex-column'>
+                  {updates.map(update => {
+                    return <Update key={`update_${update.id}`} {...update} />
+                  })}
+                </div>
+              }
             </div>
-          )}
-          <div className="btn-toolbar justify-content-between">
-            <div className="btn-group">
-              {!isFinished && (
-                <button
-                  className="btn btn-primary"
-                  onClick={this.addUpdate}
-                  disabled={!comment}
-                >
-                  Оставить комментарий
-                </button>
-              )}
-              {isFinished && !rating && (
-                <button className="btn btn-primary" onClick={this.rateTicket}>
-                  Оценить
-                </button>
-              )}
-            </div>
-            {currentRole !== roles.CUSTOMER && !isFinished && (
-              <div className="btn-group mt-1">
-                <button
-                  className="btn btn-primary"
-                  onClick={this.completeTicket}
-                  disabled={!comment}
-                >
-                  Выполнить
-                </button>
-                {currentRole !== roles.DUTY_ADMIN && (
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      this.changeExecutor(1);
-                    }}
-                    disabled={!comment}
-                  >
-                    Отправить дежурному
-                  </button>
-                )}
-                {currentRole !== roles.SENIOR_ADMIN && (
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      this.changeExecutor(2);
-                    }}
-                    disabled={!comment}
-                  >
-                    Отправить старшему
-                  </button>
-                )}
-                {currentRole !== roles.MANAGER && (
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      this.changeExecutor(3);
-                    }}
-                    disabled={!comment}
-                  >
-                    Отправить менеджеру
-                  </button>
-                )}
+            {!!rating && <div>Оценка выполнения: {rating}</div>}
+            {!isFinished && (
+              <div className='form-group mt-2'>
+                <textarea
+                  value={comment}
+                  name='comment'
+                  rows='3'
+                  className='form-control'
+                  onChange={this.handleCommentChange}
+                />
               </div>
             )}
+            <TicketButtonGroup
+              isFinished={isFinished}
+              isRated={!!rating}
+              isDisabled={!comment}
+              addUpdate={this.addUpdate}
+            />
           </div>
         </div>
-      </div>
-    );
+      </React.Fragment>
+    )
   }
 }
 
 TicketFull.propTypes = {
-  createdAt: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  phoneNumber: PropTypes.string,
-  type: PropTypes.string.isRequired,
-  updatedAt: PropTypes.string.isRequired,
-  updates: PropTypes.array.isRequired
-};
-export default TicketFull;
+  ticketInfo: PropTypes.object
+}
+export default TicketFull
