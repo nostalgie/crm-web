@@ -6,7 +6,7 @@ import MainContent from '../MainContent/container'
 import './styles.scss'
 
 /* eslint-disable react/prefer-stateless-function */
-export default class HomePage extends React.PureComponent {
+class Dashboard extends React.PureComponent {
   render () {
     return (
       <div className='vertical-control'>
@@ -17,3 +17,5 @@ export default class HomePage extends React.PureComponent {
     )
   }
 }
+
+export default Dashboard

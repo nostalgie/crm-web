@@ -26,7 +26,6 @@ export default class MainContent extends React.PureComponent {
         </div>
         <div className='alert alert-primary col-5'>
           <Routes />
-          {/* <TaskManager currentRole={currentRole} state={ticketsState} /> */}
         </div>
         <div className='alert alert-secondary col-4' />
       </main>

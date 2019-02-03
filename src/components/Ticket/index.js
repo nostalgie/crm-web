@@ -34,7 +34,7 @@ const Ticket = (props) => {
       </h6>
       <div className='card-body'>
         <p className='card-text text-center'>{description}</p>
-        <Link to={`/dashboard/${id}`} className='btn btn-primary float-right'>
+        <Link to={`/dashboard/ticket/${id}`} className='btn btn-primary float-right'>
             Показать
         </Link>
         {/* <button

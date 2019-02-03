@@ -1,10 +1,9 @@
-import { roles, routes, ticketStates } from "..";
+import { roles, routes, ticketStates } from '..'
 export const sortTasksMenu = {
-  title: "Журнал заявок",
+  title: 'Журнал заявок',
   array: [
     {
-      name: "В работе",
-      path: routes.TICKETS_OPEN,
+      name: 'В работе',
       state: ticketStates.OPEN,
       roles: [
         roles.SENIOR_ADMIN,
@@ -14,26 +13,22 @@ export const sortTasksMenu = {
       ]
     },
     {
-      name: "У менеджера",
-      path: "#",
+      name: 'У менеджера',
       state: ticketStates.FOR_MANAGER,
       roles: [roles.SENIOR_ADMIN, roles.DUTY_ADMIN]
     },
     {
-      name: "Нужен выезд",
-      path: "#",
+      name: 'Нужен выезд',
       state: ticketStates.FOR_DUTY,
       roles: [roles.SENIOR_ADMIN]
     },
     {
-      name: "Старшему админу",
-      path: "#",
+      name: 'Старшему админу',
       state: ticketStates.FOR_SENIOR,
       roles: [roles.DUTY_ADMIN]
     },
     {
-      name: "Ожидают подтверждения",
-      path: routes.TICKETS_AWAITING,
+      name: 'Ожидают подтверждения',
       state: ticketStates.AWAITING_REVIEW,
       roles: [
         roles.SENIOR_ADMIN,
@@ -43,8 +38,7 @@ export const sortTasksMenu = {
       ]
     },
     {
-      name: "Выполненные",
-      path: routes.TICKETS_CLOSED,
+      name: 'Выполненные',
       state: ticketStates.CLOSED,
       roles: [
         roles.SENIOR_ADMIN,
@@ -54,14 +48,14 @@ export const sortTasksMenu = {
       ]
     },
     {
-      name: "Внутренние заявки",
-      path: "#",
+      name: 'Внутренние заявки',
+      path: '#',
       roles: [roles.SENIOR_ADMIN, roles.DUTY_ADMIN, roles.CUSTOMER]
     },
     {
-      name: "Регламентые работы",
-      path: "#",
+      name: 'Регламентые работы',
+      path: '#',
       roles: [roles.SENIOR_ADMIN, roles.DUTY_ADMIN, roles.CUSTOMER]
     }
   ]
-};
+}
