@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Update from 'components/Update'
+import TicketButtonGroup from 'components/TicketButtonGroup/container'
 import { roles } from '../../constants'
 
 class TicketFull extends React.Component {
@@ -24,17 +25,25 @@ class TicketFull extends React.Component {
     this.setState({ comment: value })
   };
 
-  addUpdate = async () => {
-    const { id } = this.props
+  addUpdate = async e => {
+    const { id } = this.props.ticketInfo
     const { comment } = this.state
+    const { newExecutor } = e.target.dataset
+
     await this.props.addUpdate(id, comment)
+
+    if (newExecutor) {
+      this.changeExecutor(newExecutor)
+    }
+
     this.setState({ comment: '' })
   };
 
-  changeExecutor = executorId => {
-    const { id } = this.props
-    const { comment } = this.state
-    this.props.addUpdate(id, comment, executorId)
+  changeExecutor = async executorRole => {
+    console.log('hi', executorRole)
+    // const { id } = this.props
+    // const { comment } = this.state
+    // this.props.addUpdate(id, comment, executorId)
   };
 
   completeTicket = () => {
@@ -83,7 +92,7 @@ class TicketFull extends React.Component {
             </li>
             <li className='nav-item'>
               <span className='nav-link disabled'>
-                {`от ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`}
+                {`от ${date.toLocaleDateString()}`}
               </span>
             </li>
           </ul>
@@ -111,68 +120,12 @@ class TicketFull extends React.Component {
               />
             </div>
           )}
-          <div className='btn-toolbar justify-content-between'>
-            <div className='btn-group'>
-              {!isFinished && (
-                <button
-                  className='btn btn-primary'
-                  onClick={this.addUpdate}
-                  disabled={!comment}
-                >
-                  Оставить комментарий
-                </button>
-              )}
-              {isFinished && !rating && (
-                <button className='btn btn-primary' onClick={this.rateTicket}>
-                  Оценить
-                </button>
-              )}
-            </div>
-            {currentRole !== roles.CUSTOMER && !isFinished && (
-              <div className='btn-group mt-1'>
-                <button
-                  className='btn btn-primary'
-                  onClick={this.completeTicket}
-                  disabled={!comment}
-                >
-                  Выполнить
-                </button>
-                {currentRole !== roles.DUTY_ADMIN && (
-                  <button
-                    className='btn btn-primary'
-                    onClick={() => {
-                      this.changeExecutor(1)
-                    }}
-                    disabled={!comment}
-                  >
-                    Отправить дежурному
-                  </button>
-                )}
-                {currentRole !== roles.SENIOR_ADMIN && (
-                  <button
-                    className='btn btn-primary'
-                    onClick={() => {
-                      this.changeExecutor(2)
-                    }}
-                    disabled={!comment}
-                  >
-                    Отправить старшему
-                  </button>
-                )}
-                {currentRole !== roles.MANAGER && (
-                  <button
-                    className='btn btn-primary'
-                    onClick={() => {
-                      this.changeExecutor(3)
-                    }}
-                    disabled={!comment}
-                  >
-                    Отправить менеджеру
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
+          <TicketButtonGroup
+            isFinished={isFinished}
+            isRated={!!rating}
+            isDisabled={!comment}
+            addUpdate={this.addUpdate}
+          />
         </div>
       </div>
     )
