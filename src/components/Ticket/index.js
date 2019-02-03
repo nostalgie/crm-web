@@ -61,6 +61,6 @@ Ticket.propTypes = {
   id: PropTypes.number.isRequired,
   phoneNumber: PropTypes.string,
   type: PropTypes.string.isRequired,
-  updatedAt: PropTypes.string.isRequired
+  updatedAt: PropTypes.string.isRequired //???
 };
 export default Ticket;

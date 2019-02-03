@@ -19,14 +19,17 @@ export const ticketRequestFailure = message => ({
   message
 });
 
-export const getTickets = state => {
+export const getTickets = ({ state, period, customer, startDate, endDate }) => {
   return async (dispatch, getState) => {
     dispatch(ticketRequestStart());
     const { authToken } = getState().user;
     let result;
 
     try {
-      result = await api.getTickets(state, authToken);
+      result = await api.getTickets(
+        { state, period, customer, startDate, endDate },
+        authToken
+      );
       const { tickets } = result.data;
       dispatch(ticketRequestSuccess(tickets));
       return;

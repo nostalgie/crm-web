@@ -1,4 +1,5 @@
 import Request from "./Request";
+import { periods } from "constants/menus/filter";
 
 class ApiService {
   constructor() {
@@ -11,12 +12,23 @@ class ApiService {
     return this.request.post(url, { payload });
   }
 
-  getTickets(state, token) {
+  getTickets({ state, period, customer, startDate, endDate }, token) {
     const url = "/tickets";
     if (state === "awaiting") {
       state = "awaiting review";
     }
-    const params = { state };
+
+    console.log(state, period, customer, startDate, endDate);
+    let params = { state, period };
+    if (typeof customer === "number") {
+      params.customer = customer;
+    }
+
+    if (period === periods.CUSTOM) {
+      params.startDate = startDate;
+      params.endDate = endDate;
+    }
+
     return this.request.get(url, { params }, token);
   }
 
