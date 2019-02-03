@@ -2,6 +2,7 @@ export const routes = {
   HOME: '/',
   DASHBOARD: '/dashboard',
   LOGIN: '/login',
+  TICKET: '/dashboard/:id',
   TICKETS_OPEN: '/dashboard/open',
   TICKETS_AWAITING: '/dashboard/awaiting',
   TICKETS_CLOSED: '/dashboard/closed'

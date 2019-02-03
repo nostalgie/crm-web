@@ -1,18 +1,23 @@
-import { connect } from "react-redux";
-import { addUpdate, completeTicket, rateTicket } from "actions/tickets";
-import TicketFull from "components/TicketFull";
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { getTicketInfo, addUpdate, completeTicket, rateTicket } from 'actions/tickets'
+import TicketFull from 'components/TicketFull'
 
 const mapStateToProps = state => ({
-  currentRole: state.user.role
-});
+  currentRole: state.user.role,
+  ticketInfo: state.tickets.fullTicket
+})
 
 const mapDispatchToProps = {
   addUpdate,
   completeTicket,
-  rateTicket
-};
+  rateTicket,
+  getTicketInfo
+}
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TicketFull);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TicketFull)
+)
