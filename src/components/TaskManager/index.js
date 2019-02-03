@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Ticket from "components/Ticket";
-import TicketFull from "components/TicketFull/container";
-import TaskFilter from "components/TaskFilter";
+import TaskFilter from "components/TaskFilter/container";
 import { periods, types } from "constants/menus/filter";
 
 import "./styles.scss";
@@ -32,12 +31,19 @@ class TaskManager extends Component {
 
   getTickets = () => {
     const { state } = this.props;
-    const { customer, period, dateSt, dateEnd } = this.state;
+    const { customer, period, dateSt, dateEnd } = this.state.filter;
     let actualPeriod;
-    periods.keys().map(key => {
+    Object.keys(periods).map(key => {
       if (periods[key].value === period) {
         actualPeriod = periods[key].request;
       }
+    });
+    console.log({
+      state,
+      customer,
+      period: actualPeriod,
+      startDate: dateSt,
+      endDate: dateEnd
     });
     this.props.getTickets({
       state,
@@ -58,27 +64,16 @@ class TaskManager extends Component {
 
   render() {
     const { tickets } = this.props;
-    const { id, filter } = this.state;
-    const ticketProps = tickets.find(({ id }) => id === this.state.id);
     return (
       <React.Fragment>
-        <TaskFilter handleSubmit={this.handleSubmit} initState={filter} />
-        <div>
-          {id > 0 ? (
-            <TicketFull {...ticketProps} />
-          ) : (
-            <div className="d-flex flex-sm-column">
-              {tickets.map(ticket => {
-                return (
-                  <Ticket
-                    key={`ticket_${ticket.id}`}
-                    {...ticket}
-                    handleShow={this.handleShow}
-                  />
-                );
-              })}
-            </div>
-          )}
+        <TaskFilter
+          handleSubmit={this.handleSubmit}
+          initState={this.state.filter}
+        />
+        <div className="d-flex flex-sm-column">
+          {tickets.map(ticket => {
+            return <Ticket key={`ticket_${ticket.id}`} {...ticket} />;
+          })}
         </div>
       </React.Fragment>
     );

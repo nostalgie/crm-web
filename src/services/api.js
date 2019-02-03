@@ -18,7 +18,6 @@ class ApiService {
       state = "awaiting review";
     }
 
-    console.log(state, period, customer, startDate, endDate);
     let params = { state, period };
     if (typeof customer === "number") {
       params.customer = customer;
@@ -30,6 +29,18 @@ class ApiService {
     }
 
     return this.request.get(url, { params }, token);
+  }
+
+  getCustomers(token) {
+    const url = "/customers";
+
+    return this.request.get(url, token);
+  }
+
+  getTicketInfo(ticketId, token) {
+    const url = `/tickets/${ticketId}`;
+
+    return this.request.get(url, {}, token);
   }
 
   addUpdate(token, ticketId, message, executorId) {

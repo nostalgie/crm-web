@@ -1,46 +1,74 @@
 import {
   TICKETS_REQUEST_START,
   TICKETS_REQUEST_SUCCESS,
-  TICKETS_REQUEST_FAILURE
+  TICKETS_REQUEST_FAILURE,
+  TICKET_INFO_SUCCESS
 } from "constants/redux";
 import api from "services/api";
 
-export const ticketRequestStart = () => ({
+export const ticketsRequestStart = () => ({
   type: TICKETS_REQUEST_START
 });
 
-export const ticketRequestSuccess = tickets => ({
+export const ticketsRequestSuccess = tickets => ({
   type: TICKETS_REQUEST_SUCCESS,
   tickets
 });
 
-export const ticketRequestFailure = message => ({
+export const ticketsRequestFailure = message => ({
   type: TICKETS_REQUEST_FAILURE,
   message
 });
 
+export const ticketInfoSuccess = ticket => ({
+  type: TICKET_INFO_SUCCESS,
+  ticket
+});
+
 export const getTickets = ({ state, period, customer, startDate, endDate }) => {
   return async (dispatch, getState) => {
-    dispatch(ticketRequestStart());
+    dispatch(ticketsRequestStart());
     const { authToken } = getState().user;
     let result;
 
     try {
+      console.log(state, period, customer, startDate, endDate);
       result = await api.getTickets(
         { state, period, customer, startDate, endDate },
         authToken
       );
       const { tickets } = result.data;
-      dispatch(ticketRequestSuccess(tickets));
+      dispatch(ticketsRequestSuccess(tickets));
       return;
     } catch (error) {
       if (error.response) {
         const { code } = error.response.data;
         let message = `Что-то пошло не так. Код ошибки: ${code}`;
-        dispatch(ticketRequestFailure(message));
+        dispatch(ticketsRequestFailure(message));
       } else {
         console.log(error);
       }
+    }
+  };
+};
+
+export const getTicketInfo = ticketId => {
+  return async (dispatch, getState) => {
+    const { authToken } = getState().user;
+    let result;
+
+    try {
+      result = await api.getTicketInfo(ticketId, authToken);
+      const { ticket } = result.data;
+      dispatch(ticketInfoSuccess(ticket));
+      return;
+    } catch (error) {
+      // if (error.response) {
+      //   const { code } = error.response.data
+      //   let message = `Что-то пошло не так. Код ошибки: ${code}`
+      //   dispatch(ticketsRequestFailure(message))
+      // } else {
+      console.log(error);
     }
   };
 };

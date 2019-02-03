@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 
 class SelectOption extends React.Component {
   render() {
-    const { value } = this.props;
+    const { value, textValue } = this.props;
     return (
       <option
         type="option"
         aria-label="Radio button for following text input"
         value={value}
       >
-        {value}
+        {textValue}
       </option>
     );
   }
@@ -18,6 +18,7 @@ class SelectOption extends React.Component {
 
 SelectOption.propTypes = {
   selected: PropTypes.bool,
-  value: PropTypes.string
+  value: PropTypes.string,
+  textValue: PropTypes.string
 };
 export default SelectOption;

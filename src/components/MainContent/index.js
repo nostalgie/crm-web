@@ -1,9 +1,8 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
-import LeftNavBar from "../LeftNavBar";
-import TaskManager from "../TaskManager/container";
+import LeftNavBar from "components/LeftNavBar";
+import Routes from "./routes";
 
-import { roles, routes, ticketStates } from "../../constants";
+import { ticketStates } from "../../constants";
 
 import "./main-content.scss";
 
@@ -13,10 +12,13 @@ export default class MainContent extends React.PureComponent {
     ticketsState: ticketStates.OPEN
   };
 
+  componentDidMount() {
+    this.props.getCustomers();
+  }
+
   setTicketsState = newState => this.setState({ ticketsState: newState });
 
   render() {
-    const { ticketsState } = this.state;
     const { currentRole } = this.props;
     return (
       <main className=" fix">
@@ -27,7 +29,8 @@ export default class MainContent extends React.PureComponent {
           />
         </div>
         <div className="alert alert-primary col-5">
-          <TaskManager state={ticketsState} />
+          <Routes />
+          {/* <TaskManager currentRole={currentRole} state={ticketsState} /> */}
         </div>
         <div className="alert alert-secondary col-4" />
       </main>

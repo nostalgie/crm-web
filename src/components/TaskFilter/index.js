@@ -8,7 +8,7 @@ import { periods, types } from "constants/menus/filter";
 export class TaskFilter extends Component {
   constructor(props) {
     super(props);
-    const { type, customer, period, dateSt, dateEnd} = props.initState;
+    const { type, customer, period, dateSt, dateEnd } = props.initState;
     this.state = {
       type,
       customer,
@@ -19,11 +19,12 @@ export class TaskFilter extends Component {
   }
 
   handleSubmit = () => {
-    this.props.handleSubmit(this.state)
-  }
+    this.props.handleSubmit(this.state);
+  };
 
   render() {
     const { dateSt, dateEnd } = this.state;
+    const { customers } = this.props;
 
     return (
       <div className="card h-25 d-flex flex-column justify-content-around">
@@ -46,7 +47,9 @@ export class TaskFilter extends Component {
               id="customer-select"
               handleChange={customer => this.setState({ customer })}
             >
-              <SelectOption value="Крыса Лариса" />
+              {customers.map(({ id, name }) => (
+                <SelectOption value={id} textValue={name} />
+              ))}
             </Select>
           ) : null}
         </div>

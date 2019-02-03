@@ -1,16 +1,9 @@
 import { connect } from "react-redux";
-import { getTickets } from "actions/tickets";
 import TaskFilter from "components/TaskFilter";
 
 const mapStateToProps = state => ({
-  currentRole: state.user.role
+  currentRole: state.user.role,
+  customers: state.customers.customers
 });
 
-const mapDispatchToProps = {
-  getTickets
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TaskFilter);
+export default connect(mapStateToProps)(TaskFilter);
