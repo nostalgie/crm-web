@@ -2,6 +2,7 @@ import React from 'react'
 // import PropTypes from 'prop-types'
 import { reduxForm } from 'redux-form'
 import Input from 'components/Forms/Elements/Input'
+import Textarea from 'components/Forms/Elements/Textarea'
 import { validate } from 'utils/validators'
 
 const NewTicketForm = props => {
@@ -9,22 +10,32 @@ const NewTicketForm = props => {
   return (
     <form onSubmit={handleSubmit} noValidate>
       <Input
-        name='firstname'
-        id='firstname'
+        name='firstName'
+        id='firstName'
         placeholder='Ваше имя'
         label='Ваше имя'
+        showError={false}
       />
       <Input
-        name='lastname'
-        id='lastname'
+        name='lastName'
+        id='lastName'
         placeholder='Ваша фамилия'
         label='Ваша фамилия'
+        showError={false}
       />
       <Input
-        name='phone'
-        id='phone'
+        name='phoneNumber'
+        id='phoneNumber'
         placeholder='Контактный телефон'
         label='Контактный телефон'
+        showError={false}
+      />
+      <Textarea
+        name='description'
+        id='description'
+        placeholder='Краткое описание проблемы'
+        label='Краткое описание проблемы'
+        showError={false}
       />
       {error && <div className='text-danger'>{error}</div>}
       <button type='submit'>Сообщить о проблеме</button>

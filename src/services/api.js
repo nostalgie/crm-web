@@ -72,6 +72,13 @@ class ApiService {
 
     return this.request.post(url, { payload }, token)
   }
+
+  createTicket (token, ticketData) {
+    const url = 'tickets'
+    const payload = ticketData
+
+    return this.request.post(url, { payload }, token)
+  }
 }
 
 export default new ApiService()

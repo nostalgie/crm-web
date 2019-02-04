@@ -1,14 +1,15 @@
 import { connect } from 'react-redux'
 import { getCustomers } from 'actions/customers'
+import { createTicket } from 'actions/tickets'
 import { withRouter } from 'react-router-dom'
 import MainContent from 'components/MainContent'
 
 const mapStateToProps = state => ({
-  currentRole: state.user.role
 })
 
 const mapDispatchToProps = {
-  getCustomers
+  getCustomers,
+  createTicket
 }
 
 export default withRouter(

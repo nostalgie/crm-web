@@ -4,16 +4,15 @@ import { Field } from 'redux-form'
 import cn from 'classnames'
 import { localizeError } from 'utils/localizers'
 
-class Input extends React.PureComponent {
+class Input extends React.Component {
   renderInput = ({ input, meta: { touched, error } }) => {
-    const { type = 'text', placeholder, id, label, className, showError = true } = this.props
+    const { placeholder, id, label, className, showError = true } = this.props
 
     return (
       <div className='form-group'>
         {!!label && <label htmlFor={id}>{label}</label>}
-        <input
+        <textarea
           {...input}
-          type={type}
           className={cn('form-control', className)}
           id={id}
           placeholder={placeholder}
@@ -35,7 +34,6 @@ class Input extends React.PureComponent {
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
-  type: PropTypes.string,
   placeholder: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string,

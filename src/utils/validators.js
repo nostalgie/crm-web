@@ -5,7 +5,8 @@ export const validations = {
   password: [required()],
   firstname: [required()],
   lastname: [required()],
-  phone: [required()]
+  phone: [required()],
+  description: [required()]
 }
 
 // it's taken from 'redux-form-validators' npm docs
@@ -19,4 +20,4 @@ export const validate = values => {
       .find(x => x)
   })
   return errors
-};
+}
