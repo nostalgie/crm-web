@@ -1,5 +1,5 @@
 import React from 'react';
-import LeftNavBar from 'components/LeftNavBar';
+import LeftNavBar from 'components/LeftNavBar/container';
 import Routes from './routes';
 
 import { ticketStates } from '../../constants';
@@ -12,13 +12,13 @@ export default class MainContent extends React.PureComponent {
     ticketsState: ticketStates.OPEN
   };
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getCustomers()
   }
 
   setTicketsState = newState => this.setState({ ticketsState: newState });
 
-  render () {
+  render() {
     const { currentRole } = this.props
     return (
       <main className=' fix'>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Update from 'components/Update'
 import TicketButtonGroup from 'components/TicketButtonGroup/container'
 import NewExecutorModal from 'components/Modals/NewExecutorModal'
+import Ticket from 'components/Ticket'
 
 class TicketFull extends React.Component {
   state = {
@@ -10,7 +11,7 @@ class TicketFull extends React.Component {
     showNewExecutorModal: false
   };
 
-  componentDidMount () {
+  componentDidMount() {
     this.getTicketInfo()
   }
 
@@ -86,7 +87,7 @@ class TicketFull extends React.Component {
     this.setState({ showNewExecutorModal: !showNewExecutorModal })
   }
 
-  render () {
+  render() {
     const { ticketInfo } = this.props
     const { comment, showNewExecutorModal } = this.state
 
@@ -96,10 +97,6 @@ class TicketFull extends React.Component {
 
     const {
       createdAt,
-      description,
-      firstName,
-      lastName,
-      phoneNumber,
       updates,
       isFinished,
       rating
@@ -113,55 +110,35 @@ class TicketFull extends React.Component {
           onClose={this.toggleNewExecutorModal}
           onSend={this.onExecutorSelect}
         />
-        <div className='card'>
-          <h6 className='card-header'>
-            <ul className='nav justify-content-center'>
-              <li className='nav-item'>
-                <span className='nav-link active'>
-                  {`КОМПАНИЯ:${firstName + ' ' + lastName}`}
-                </span>
-              </li>
-              <li className='nav-item'>
-                <span className='nav-link active'>{`тел.${phoneNumber}`}</span>
-              </li>
-              <li className='nav-item'>
-                <span className='nav-link disabled'>
-                  {`от ${date.toLocaleDateString()}`}
-                </span>
-              </li>
-            </ul>
-          </h6>
-          <div className='card-body'>
-            <p className='card-text text-center'>{description}</p>
-            <div className='d-flex flex-coloum'>
-              {
-                <div className='container-fluid d-flex flex-column'>
-                  {updates.map(update => {
-                    return <Update key={`update_${update.id}`} {...update} />
-                  })}
-                </div>
-              }
-            </div>
-            {!!rating && <div>Оценка выполнения: {rating}</div>}
-            {!isFinished && (
-              <div className='form-group mt-2'>
-                <textarea
-                  value={comment}
-                  name='comment'
-                  rows='3'
-                  className='form-control'
-                  onChange={this.handleCommentChange}
-                />
+        <Ticket {...ticketInfo} showButton={false}>
+          <div className='d-flex flex-coloum'>
+            {
+              <div className='container-fluid d-flex flex-column'>
+                {updates.map(update => {
+                  return <Update key={`update_${update.id}`} {...update} />
+                })}
               </div>
-            )}
-            <TicketButtonGroup
-              isFinished={isFinished}
-              isRated={!!rating}
-              isDisabled={!comment}
-              addUpdate={this.addUpdate}
-            />
+            }
           </div>
-        </div>
+          {!!rating && <div>Оценка выполнения: {rating}</div>}
+          {!isFinished && (
+            <div className='form-group mt-2'>
+              <textarea
+                value={comment}
+                name='comment'
+                rows='3'
+                className='form-control'
+                onChange={this.handleCommentChange}
+              />
+            </div>
+          )}
+          <TicketButtonGroup
+            isFinished={isFinished}
+            isRated={!!rating}
+            isDisabled={!comment}
+            addUpdate={this.addUpdate}
+          />
+        </Ticket>
       </React.Fragment>
     )
   }

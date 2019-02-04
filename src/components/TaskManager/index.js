@@ -17,7 +17,7 @@ class TaskManager extends Component {
   };
 
   componentDidMount() {
-    this.getTickets();
+    // this.getTickets();
   }
 
   async componentDidUpdate(prevProps) {
@@ -60,7 +60,7 @@ class TaskManager extends Component {
         />
         <div className="d-flex flex-sm-column">
           {tickets.map(ticket => {
-            return <Ticket key={`ticket_${ticket.id}`} {...ticket} />;
+            return <Ticket key={`ticket_${ticket.id}`} {...ticket} showButton={true} />;
           })}
         </div>
       </React.Fragment>

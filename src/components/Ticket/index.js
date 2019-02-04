@@ -9,7 +9,8 @@ const Ticket = (props) => {
     firstName,
     lastName,
     id,
-    phoneNumber
+    phoneNumber,
+    showButton
   } = props
   const date = new Date(createdAt)
 
@@ -27,24 +28,19 @@ const Ticket = (props) => {
           </li>
           <li className='nav-item'>
             <span className='nav-link disabled'>
-              {`от ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`}
+              {`от ${date.toLocaleDateString()}`}
             </span>
           </li>
         </ul>
       </h6>
       <div className='card-body'>
         <p className='card-text text-center'>{description}</p>
-        <Link to={`/dashboard/ticket/${id}`} className='btn btn-primary float-right'>
+        {showButton && (
+          <Link to={`/dashboard/ticket/${id}`} className='btn btn-primary float-right'>
             Показать
-        </Link>
-        {/* <button
-            className='btn btn-primary float-right'
-            onClick={() => {
-              handleShow(id)
-            }}
-          >
-            Показать
-          </button> */}
+          </Link>
+        )}
+        {props.children}
       </div>
     </div>
   )
