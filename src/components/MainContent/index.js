@@ -1,10 +1,11 @@
-import React from 'react';
-import LeftNavBar from 'components/LeftNavBar/container';
-import Routes from './routes';
+import React from 'react'
+import LeftNavBar from 'components/LeftNavBar/container'
+import NewTicketForm from 'components/Forms/NewTicketForm'
+import Routes from './routes'
 
-import { ticketStates } from '../../constants';
+import { ticketStates } from '../../constants'
 
-import './main-content.scss';
+import './main-content.scss'
 
 /* eslint-disable react/prefer-stateless-function */
 export default class MainContent extends React.PureComponent {
@@ -12,13 +13,13 @@ export default class MainContent extends React.PureComponent {
     ticketsState: ticketStates.OPEN
   };
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.getCustomers()
   }
 
   setTicketsState = newState => this.setState({ ticketsState: newState });
 
-  render() {
+  render () {
     const { currentRole } = this.props
     return (
       <main className=' fix'>
@@ -31,7 +32,9 @@ export default class MainContent extends React.PureComponent {
         <div className='alert alert-primary col-5'>
           <Routes />
         </div>
-        <div className='alert alert-secondary col-4' />
+        <div className='alert alert-secondary col-4'>
+          <NewTicketForm />
+        </div>
       </main>
     )
   }

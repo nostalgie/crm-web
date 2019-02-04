@@ -1,30 +1,30 @@
-import React, { PureComponent } from "react";
-import { SubmissionError } from "redux-form";
-import PropTypes from "prop-types";
-import LoginForm from "components/LoginForm";
+import React, { PureComponent } from 'react'
+import { SubmissionError } from 'redux-form'
+import PropTypes from 'prop-types'
+import LoginForm from 'components/Forms/LoginForm'
 
-import "./styles.scss";
+import './styles.scss'
 
 class LoginLayout extends PureComponent {
   handleSubmit = async values => {
-    const { username, password } = values;
+    const { username, password } = values
 
-    await this.props.login(username, password);
+    await this.props.login(username, password)
 
-    const { loginError } = this.props;
+    const { loginError } = this.props
     if (loginError) {
       throw new SubmissionError({
         _error: loginError
-      });
+      })
     }
   };
 
-  render() {
+  render () {
     return (
-      <section className="login pt-5 mx-auto">
+      <section className='login pt-5 mx-auto'>
         <LoginForm onSubmit={this.handleSubmit} />
       </section>
-    );
+    )
   }
 }
 
@@ -33,6 +33,6 @@ LoginLayout.propTypes = {
   username: PropTypes.string,
   login: PropTypes.func,
   loginError: PropTypes.string
-};
+}
 
-export default LoginLayout;
+export default LoginLayout
