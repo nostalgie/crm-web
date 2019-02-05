@@ -11,7 +11,7 @@ class TicketFull extends React.Component {
     showNewExecutorModal: false
   };
 
-  componentDidMount() {
+  componentDidMount () {
     this.getTicketInfo()
   }
 
@@ -87,7 +87,7 @@ class TicketFull extends React.Component {
     this.setState({ showNewExecutorModal: !showNewExecutorModal })
   }
 
-  render() {
+  render () {
     const { ticketInfo } = this.props
     const { comment, showNewExecutorModal } = this.state
 
@@ -121,7 +121,7 @@ class TicketFull extends React.Component {
             }
           </div>
           {!!rating && <div>Оценка выполнения: {rating}</div>}
-          {!isFinished && (
+          {!rating && (
             <div className='form-group mt-2'>
               <textarea
                 value={comment}
