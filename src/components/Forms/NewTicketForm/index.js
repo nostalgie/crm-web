@@ -37,17 +37,36 @@ const NewTicketForm = props => {
         label='Краткое описание проблемы'
         showError={false}
       />
+      <div className='d-flex flex-row'>
+        <Input
+          name='type'
+          id='type-common'
+          type='radio'
+          placeholder='Обслуживание'
+          label='Обслуживание'
+          value='common'
+          showError={false}
+        />
+        <Input
+          name='type'
+          id='type-urgent'
+          type='radio'
+          placeholder='Авария'
+          label='Авария'
+          value='urgent'
+          showError={false}
+        />
+      </div>
       {error && <div className='text-danger'>{error}</div>}
       <button type='submit'>Сообщить о проблеме</button>
     </form>
   )
 }
 
-// NewTicketForm.propTypes = {
-//   handleSubmit: PropTypes.func
-// }
-
 export default reduxForm({
   form: 'newTicket',
-  validate
+  validate,
+  initialValues: {
+    type: 'common'
+  }
 })(NewTicketForm)

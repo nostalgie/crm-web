@@ -6,7 +6,7 @@ import { localizeError } from 'utils/localizers'
 
 class Input extends React.PureComponent {
   renderInput = ({ input, meta: { touched, error } }) => {
-    const { type = 'text', placeholder, id, label, className, showError = true } = this.props
+    const { value, type = 'text', placeholder, id, label, className, showError = true } = this.props
 
     return (
       <div className='form-group'>
@@ -16,6 +16,7 @@ class Input extends React.PureComponent {
           type={type}
           className={cn('form-control', className)}
           id={id}
+          value={value}
           placeholder={placeholder}
         />
         {showError && touched &&
