@@ -3,8 +3,8 @@ import {
   TICKETS_REQUEST_SUCCESS,
   TICKETS_REQUEST_FAILURE,
   TICKET_INFO_SUCCESS
-} from 'constants/redux';
-import api from 'services/api';
+} from 'constants/redux'
+import api from 'services/api'
 
 export const ticketsRequestStart = () => ({
   type: TICKETS_REQUEST_START
@@ -46,7 +46,7 @@ export const getTickets = ({
       )
       const { tickets, pages } = result.data
       dispatch(ticketsRequestSuccess(tickets, pages, page))
-      return;
+      return
     } catch (error) {
       if (error.response) {
         const { code } = error.response.data
@@ -57,7 +57,7 @@ export const getTickets = ({
       }
     }
   }
-};
+}
 
 export const getTicketInfo = ticketId => {
   return async (dispatch, getState) => {
@@ -68,12 +68,12 @@ export const getTicketInfo = ticketId => {
       result = await api.getTicketInfo(ticketId, authToken)
       const { ticket } = result.data
       dispatch(ticketInfoSuccess(ticket))
-      return;
+      return
     } catch (error) {
       console.log(error)
     }
   }
-};
+}
 
 export const addUpdate = (ticketId, message, executorId) => {
   return async (dispatch, getState) => {
@@ -86,7 +86,7 @@ export const addUpdate = (ticketId, message, executorId) => {
       console.log(error)
     }
   }
-};
+}
 
 export const completeTicket = ticketId => {
   return async (dispatch, getState) => {
@@ -99,7 +99,7 @@ export const completeTicket = ticketId => {
       console.log(error)
     }
   }
-};
+}
 
 export const rateTicket = (ticketId, rating) => {
   return async (dispatch, getState) => {
@@ -112,14 +112,15 @@ export const rateTicket = (ticketId, rating) => {
       console.log(error)
     }
   }
-};
+}
 
 export const createTicket = ({
   firstName,
   lastName,
   phoneNumber,
   description,
-  type
+  type,
+  customer
 }) => {
   return async (dispatch, getState) => {
     const { authToken } = getState().user
@@ -130,10 +131,13 @@ export const createTicket = ({
         lastName,
         phoneNumber,
         description,
-        type
+        type,
+        customerId: customer
       })
+
+      return result
     } catch (error) {
       console.log(error)
     }
   }
-};
+}

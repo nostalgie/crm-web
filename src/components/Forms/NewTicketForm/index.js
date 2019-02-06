@@ -2,13 +2,27 @@ import React from 'react'
 // import PropTypes from 'prop-types'
 import { reduxForm } from 'redux-form'
 import Input from 'components/Forms/Elements/Input'
+import Select from 'components/Forms/Elements/NewSelect'
 import Textarea from 'components/Forms/Elements/Textarea'
 import { validate } from 'utils/validators'
+import { roles } from '../../../constants'
 
 const NewTicketForm = props => {
-  const { handleSubmit, error } = props
+  const { handleSubmit, error, currentRole, customers } = props
   return (
     <form onSubmit={handleSubmit} noValidate>
+      {currentRole !== roles.CUSTOMER && (
+        <Select
+          name='customer'
+          id='customer'
+          label='Выберите заказчика'
+          options={customers.map(customer => ({
+            value: customer.id,
+            text: customer.name
+          }))}
+          showError={false}
+        />
+      )}
       <Input
         name='firstName'
         id='firstName'

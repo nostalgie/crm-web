@@ -1,6 +1,6 @@
 import React from 'react'
 import LeftNavBar from 'components/LeftNavBar/container'
-import NewTicketForm from 'components/Forms/NewTicketForm'
+import NewTicketForm from 'components/Forms/NewTicketForm/container'
 import Routes from './routes'
 
 import './main-content.scss'
@@ -24,7 +24,7 @@ export default class MainContent extends React.PureComponent {
         <div className='alert alert-primary col-5'>
           <Routes />
         </div>
-        <div className='alert alert-secondary col-4'>
+        <div className='alert alert-secondary col-4 new-ticket-form-container'>
           <NewTicketForm onSubmit={this.createNewTicket} />
         </div>
       </main>
