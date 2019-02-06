@@ -12,7 +12,6 @@ export default class MainContent extends React.PureComponent {
   }
 
   createNewTicket = (values) => {
-    console.log(values)
     this.props.createTicket(values)
   }
 

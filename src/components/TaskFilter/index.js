@@ -19,7 +19,6 @@ export class TaskFilter extends Component {
   }
 
   handleSubmit = () => {
-    console.log(this.state)
     this.props.handleSubmit(this.state)
   };
 
@@ -28,7 +27,7 @@ export class TaskFilter extends Component {
     const { customers } = this.props
 
     return (
-      <div className='card h-25 d-flex flex-column justify-content-around'>
+      <div className='card h-25 d-flex flex-column justify-content-around mb-1'>
         <div className={'d-flex justify-content-start'}>
           <RadioGroup
             className={'d-flex justify-content-between w-75'}
@@ -47,7 +46,6 @@ export class TaskFilter extends Component {
               name='customer'
               id='customer-select'
               handleChange={customer => {
-                console.log('dwedwed')
                 this.setState({ customer })
               }}
             >

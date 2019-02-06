@@ -5,6 +5,8 @@ import TaskManager from 'components/TaskManager'
 
 const mapStateToProps = state => ({
   tickets: state.tickets.tickets,
+  pages: state.tickets.pages,
+  currentPage: state.tickets.currentPage,
   ticketsRequestError: state.tickets.error
 })
 

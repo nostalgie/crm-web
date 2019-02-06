@@ -15,7 +15,7 @@ const Ticket = (props) => {
   const date = new Date(createdAt)
 
   return (
-    <div className='card'>
+    <div className='card mb-1'>
       <h6 className='card-header'>
         <ul className='nav justify-content-center'>
           <li className='nav-item'>

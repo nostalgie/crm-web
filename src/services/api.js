@@ -12,13 +12,13 @@ class ApiService {
     return this.request.post(url, { payload })
   }
 
-  getTickets ({ state, period, customer, startDate, endDate }, token) {
+  getTickets ({ state, period, customer, startDate, endDate, page }, token) {
     const url = '/tickets'
     if (state === 'awaiting') {
       state = 'awaiting review'
     }
 
-    let params = { state, period }
+    let params = { state, period, page }
     if (typeof customer === 'number') {
       params.customer = customer
     }
@@ -27,7 +27,6 @@ class ApiService {
       params.startDate = startDate
       params.endDate = endDate
     }
-    console.log(params)
     return this.request.get(url, { params }, token)
   }
 
