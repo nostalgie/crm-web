@@ -50,12 +50,12 @@ export const sortTasksMenu = {
     {
       name: 'Внутренние заявки',
       path: '#',
-      roles: [roles.SENIOR_ADMIN, roles.DUTY_ADMIN, roles.CUSTOMER]
+      roles: [roles.SENIOR_ADMIN, roles.DUTY_ADMIN]
     },
     {
       name: 'Регламентые работы',
       path: '#',
-      roles: [roles.SENIOR_ADMIN, roles.DUTY_ADMIN, roles.CUSTOMER]
+      roles: [roles.SENIOR_ADMIN, roles.DUTY_ADMIN]
     }
   ]
 }

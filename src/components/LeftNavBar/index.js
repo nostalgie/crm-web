@@ -1,41 +1,51 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { sortTasksMenu } from '../../constants/menus/sortTasksMenu'
-import { innerTasksMenu } from '../../constants/menus/innerTasksMenu'
-import { routes } from '../../constants'
+import { sortTasksMenu } from "../../constants/menus/sortTasksMenu";
+import { innerTasksMenu } from "../../constants/menus/innerTasksMenu";
+import { routes, userTypes } from "../../constants";
 
-import './styles.scss'
+import "./styles.scss";
 
-const LeftNavBar = props => (
-  <React.Fragment>
-    {[sortTasksMenu, innerTasksMenu]
-      .filter(elem =>
-        elem.array.some(option =>
-          option.roles.some(role => role === props.currentRole)
+const LeftNavBar = ({ customers, currentRole }) =>
+  console.log(
+    customers,
+    currentRole,
+    userTypes.CUSTOMER,
+    sortTasksMenu,
+    innerTasksMenu,
+  ) || (
+    <React.Fragment>
+      {[sortTasksMenu, innerTasksMenu]
+        .filter(elem =>
+          elem.array.some(option =>
+            option.roles.some(role => role === currentRole)
+          )
         )
-      )
-      .map(elem => (
-        <div key={elem.title} className='container fix-retarded-bootstrap'>
-          <h4 className='dropdown-header'>{elem.title}</h4>
-          {elem.array
-            .filter(item => item.roles.some(role => role === props.currentRole))
-            .map(currentItem => (
-              <Link to={`${routes.TICKETS}?state=${currentItem.state}`} className='dropdown-item'>
-                {currentItem.name}
-              </Link>
-            ))}
+        .map(elem => (
+          <div key={elem.title} className="container fix-retarded-bootstrap">
+            <h4 className="dropdown-header">{elem.title}</h4>
+            {elem.array
+              .filter(item => item.roles.some(role => role === currentRole))
+              .map(currentItem => (
+                <Link
+                  to={`${routes.TICKETS}?state=${currentItem.state}`}
+                  className="dropdown-item"
+                >
+                  {currentItem.name}
+                </Link>
+              ))}
+          </div>
+        ))}
+      {currentRole !== userTypes.CUSTOMER ? (
+        <div key="Заказчики" className="container fix-retarded-bootstrap">
+          <h4 className="dropdown-header">Заказчики</h4>
+          {customers.map(customer => (
+            <span className="dropdown-item">{customer.name}</span>
+          ))}
         </div>
-      ))}
-    <div key='Заказчики' className='container fix-retarded-bootstrap'>
-      <h4 className='dropdown-header'>Заказчики</h4>
-      {props.customers.map(customer => (
-        <span className='dropdown-item'>
-          {customer.name}
-        </span>
-      ))}
-    </div>
-  </React.Fragment>
-)
+      ) : null}
+    </React.Fragment>
+  );
 
-export default LeftNavBar
+export default LeftNavBar;
